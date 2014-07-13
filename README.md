@@ -1,11 +1,10 @@
-#Плагины для магазинов инструментов электронной коммерции Apishops
+##Плагины Apishops
 
-----
-Плагин дополнительных товаров позволяет:
 
   - [Плагин для дополнительных товаров Apishops]
-  - Плагин подключаемой формы заказа товара
+  - [Плагин подключаемой формы заказа товара Apishops]
 
-----
+
 © Apishops.com - инструменты для электронной коммерции 
 [Плагин для дополнительных товаров Apishops]:https://github.com/apishops/plugins/tree/master/AdditionalProduct
+[Плагин подключаемой формы заказа товара Apishops]:https://github.com/apishops/plugins/tree/master/AdditionalProductt
