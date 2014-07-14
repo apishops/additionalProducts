@@ -7,8 +7,8 @@
   - Приобрести дополнительные товары нажатием одной кнопки
 
 
-###Подключение плагина
-
+###Подключение
+  
 
 ```sh
 <link rel="stylesheet" href="http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css">
