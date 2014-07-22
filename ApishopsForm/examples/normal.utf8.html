@@ -1,0 +1,78 @@
+    <html>
+    <head>  
+    <!-- init jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <!-- init apishops -->
+    <script src="http://img.apishops.org/SinglePageWebsites/custom/js/apishopsForm.utf8.js"></script>
+    <link href="http://img.apishops.org/SinglePageWebsites/custom/css/apishopsForm.css" rel="stylesheet">
+    </head>
+    <body>
+    <script>
+    $(document).ready( function() {
+    $('#container2').apishopsForm({
+    type:'inline', /*тип открытия [inline|modal]*/
+    form:'#customForm3', /*тип формы [normal|light|jquery-selector]*/   
+    siteId:10221,
+    productId:632879,
+    price:1017.41, /*цена товара*/
+    priceRound:1017, /*округленная цена*/
+    wpId:15743307
+    });
+    }); 
+    </script>
+    <div id=container2>
+    
+    <form id=customForm3 class="apishopsForm">
+    <h1>Форма заказа</h1>
+    <small>Заполните пожалуйста поля</small>
+    <div class="apishopsFormGroup apishopsFormCount">
+    <label>Количество</label>
+    <select name='apishopsFormCount' pattern="^[1-9][0-9]*$">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>  
+    </select>
+    </div>
+    <div class="apishopsFormGroup apishopsFormFio">
+    <label for="inputSuccess"> &nbsp;</label>
+    <input type="text" name='apishopsFormFio' placeholder="ФИО" pattern=".{3,}">
+    </div>
+    <div class="apishopsFormGroup apishopsFormMail">
+    <input type="text" name='apishopsFormEmail' placeholder="email@email.com" pattern=".*">
+    </div>  
+    <div class="apishopsFormGroup apishopsFormPhone">
+    <input type="text" name='apishopsFormPhone' placeholder="+380(___) ___ __ __" pattern=".{3,}">
+    </div>
+    <div class="apishopsFormGroup apishopsFormAddress">
+    <input type="text" name='apishopsFormAddress' placeholder="ул.Юннатов, д.1, кв.2" pattern=".{3,}">
+    </div>  
+    <div class="apishopsFormGroup apishopsFormCity">
+    <label>Выберите город доставки</label>
+    <select name='apishopsFormRegion' pattern="^[0-9][0-9]*$">
+    </select>
+    </div>
+    <div class="apishopsFormGroup apishopsFormDelivery apishopsAnimation apishopsSlide">
+    <label>Выберите способ доставки</label>
+    <select name='apishopsFormDelivery' pattern="^[0-9][0-9]*$">
+    </select>
+    </div>  
+    <div class="apishopsFormGroup apishopsFormPayment apishopsAnimation apishopsSlide">
+    <label>Выберите способ оплаты</label>
+    <select name='apishopsFormPayment' pattern="^[0-9][0-9]*$">
+    </select>
+    </div>  
+    <div class="apishopsFormGroup apishopsFormCost apishopsAnimation apishopsSlide apishopsLoading">
+    <label><span name='apishopsFormCost'></span></label>    
+    </div>  
+    <div class="apishopsFormGroup">
+    <a href="#" class="apishopsFormButton apishopsFormBuy" onclick='$(this).closest("form").submit(); return false;'>
+    <b>Заказать товар!</b>  
+    </a>
+    </div>
+    
+    </form>  
+    </div>  
+    </body>
+    </html>
