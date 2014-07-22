@@ -1,3 +1,7 @@
+/***
+v1.2
+*/
+
 jQuery.fn.apishopsForm=function(options) 
 {
    var settings = 
@@ -37,6 +41,8 @@ jQuery.fn.apishopsForm=function(options)
 		price:1017.41,
 		priceRound:1017, 
 		wpId:15743307,
+		lang:6,
+		charset:'utf8',
 		successUrl:'/finish.jsp?id=',
 		form_template_normal:'    <form id=customForm class="apishopsForm">		<h1>Форма заказа</h1>		<small>Заполните пожалуйста поля</small>		<div class="apishopsFormGroup apishopsFormCount">			<label>Количество</label>			<select name="apishopsFormCount" pattern="^[1-9][0-9]*$">				<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>			</select>		</div>		<div class="apishopsFormGroup apishopsFormFio">			<label for="inputSuccess"> &nbsp;</label>			<input type="text" name="apishopsFormFio" placeholder="ФИО" pattern=".{3,}">		</div>		<div class="apishopsFormGroup apishopsFormMail">			<input type="text" name="apishopsFormEmail" placeholder="email@email.com" pattern=".*">		 </div>				<div class="apishopsFormGroup apishopsFormPhone">			<input type="text" name="apishopsFormPhone" placeholder="+7(___) ___ __ __" pattern=".{3,}">		</div>		<div class="apishopsFormGroup apishopsFormAddress">			<input type="text" name="apishopsFormAddress" placeholder="ул.Юннатов, д.1, кв.2" pattern=".{3,}">		 </div>				  		<div class="apishopsFormGroup apishopsFormCity">			<label>Выберите город доставки</label>			<select name="apishopsFormRegion" pattern="^[0-9][0-9]*$">			</select>		</div>		<div class="apishopsFormGroup apishopsFormDelivery apishopsAnimation apishopsSlide">			<label>Выберите способ доставки</label>			<select name="apishopsFormDelivery" pattern="^[0-9][0-9]*$">			</select>		</div>								<div class="apishopsFormGroup apishopsFormPayment apishopsAnimation apishopsSlide">			<label>Выберите способ оплаты</label>			<select name="apishopsFormPayment" pattern="^[0-9][0-9]*$">			</select>		</div>			<div class="apishopsFormGroup apishopsFormCost apishopsAnimation apishopsSlide apishopsLoading">			<label><span name="apishopsFormCost"></span></label>					</div>							<div class="apishopsFormGroup">			<a href="#" class="apishopsFormButton apishopsFormBuy underline" onclick="$(this).closest(\'form\').submit(); return false;">				<b>Заказать товар!</b>						</a>		</div> 			         </form>',
 		form_template_light:'	<form class="apishopsForm apishopsFormInline">	  <h1>Обратный звонок</h1>	  <small>Заполните пожалуйста поля</small>      <div class="apishopsFormGroup">        <label>Количество</label>        <select name="apishopsFormCount">			<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>		</select>      </div>      <div class="apishopsFormGroup">         <label>Ваше имя</label>        <input type="text" name="apishopsFormFio" placeholder="ФИО" pattern=".{3,}">      </div>      <div class="apishopsFormGroup">        <label>Ваш телефон</label>        <input type="text"  name="apishopsFormPhone" placeholder="+7(___) ___ __ __" pattern=".{3,}">      </div>      <div class="apishopsFormGroup">        <label>Ваш адрес</label>        <input type="text"  name="apishopsFormAddress" placeholder="ул.Юннатов, д.1, кв.2" pattern=".{3,}">      </div>            <div class="apishopsFormGroup">        <label>&nbsp;</label>		<a href="#" onclick="$(this).closest(\'form\').submit(); return false;" class="apishopsFormButton apishopsFormBuy underline">			<b>Заказать товар!</b>					</a>      </div>          </form>'	
@@ -150,6 +156,7 @@ jQuery.fn.apishopsForm=function(options)
 					productId:settings.productId,
 					wpId:settings.wpId,	
 					siteId:settings.siteId,
+					charset:settings.charset,
 					retrys:3
 				};
 				apishopsFormLoadRegions(params);
@@ -162,6 +169,7 @@ jQuery.fn.apishopsForm=function(options)
 							productId:settings.productId,
 							wpId:settings.wpId,	
 							siteId:settings.siteId,
+							charset:settings.charset,
 							retrys:3
 						};					
 					  settings.inputs['delivery'].closest('.apishopsFormGroup').addClass('in');   
@@ -219,6 +227,7 @@ jQuery.fn.apishopsForm=function(options)
 						return false;
 					}else{	
 							promocode=(typeof settings.inputs['promocode']!='undefined' && settings.inputs['promocode'].length)?settings.inputs['promocode'].val():'';			
+							lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
 							params={
 								object:settings.inputs['button'],
 								form:settings['form'],
@@ -236,6 +245,7 @@ jQuery.fn.apishopsForm=function(options)
 								productId:settings.productId,
 								wpId:settings.wpId,	
 								siteId:settings.siteId,
+								lang:lang,
 								successUrl:settings.successUrl,
 								sourceRef:getCookie("sourceRef"),
 								sourceParam:getCookie("sourceParam")
@@ -263,6 +273,7 @@ jQuery.fn.apishopsForm=function(options)
 						return false;
 					}else{
                 			promocode=(typeof settings.inputs['promocode']!='undefined' && settings.inputs['promocode'].length)?settings.inputs['promocode'].val():'';			
+                			lang=(typeof settings['lang']!='undefined')?settings['lang']:'1';
 							params={
 								object:settings.inputs['button'],
 								form:settings['form'],
@@ -276,7 +287,8 @@ jQuery.fn.apishopsForm=function(options)
 								sourceParam:getCookie("sourceParam"),
 								productId:settings.productId,
 								wpId:settings.wpId,	
-								siteId:settings.siteId
+								siteId:settings.siteId,
+								lang:lang
 							};		
 							apishopsFormSubmit(params);
 					}
@@ -443,6 +455,7 @@ function apishopsFormLoadParcelParameters(params){
     		objectId:params['objectId'],
     		jsonp: 'dataType',
     		retrys:params['retrys'],
+    		charset:params['charset'],
     		callBackFunctionName:params['callBackFunctionName']
     	},	
 		function(result){
@@ -522,6 +535,7 @@ function apishopsFormLoadRegions(params){
     		productId: params['productId'], 
     		wpId: params['wpId'],
     		objectId:$object.attr('id'),
+    		charset:params['charset'],
     		jsonp: 'dataType'
     	},	
 		function(result){
@@ -764,7 +778,8 @@ function apishopsFormSubmit(params){
                 sourceParam: params.sourceParam, 
                 sourceRef: params.sourceRef,
                 clientTimeZone: clientTimeZone,
-                successUrl: params.successUrl		
+                successUrl: params.successUrl,
+                lang:params.lang
 		};
 	}else{
 		$jsonp={
@@ -782,7 +797,8 @@ function apishopsFormSubmit(params){
                 sourceParam: params.sourceParam, 
                 sourceRef: params.sourceRef,
                 clientTimeZone: clientTimeZone,
-                successUrl: params.successUrl		
+                successUrl: params.successUrl,
+                lang:params.lang		
 		};		
 	}	
 
