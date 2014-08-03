@@ -155,8 +155,9 @@ jQuery.fn.apishopsForm=function(options)
 					price:settings.price,
 					productId:settings.productId,
 					wpId:settings.wpId,	
-					siteId:settings.siteId,
+					siteId:settings.siteId,  
 					charset:settings.charset,
+					lang:settings.lang,
 					retrys:3
 				};
 				apishopsFormLoadRegions(params);
@@ -170,6 +171,7 @@ jQuery.fn.apishopsForm=function(options)
 							wpId:settings.wpId,	
 							siteId:settings.siteId,
 							charset:settings.charset,
+							lang:settings.lang, 
 							retrys:3
 						};					
 					  settings.inputs['delivery'].closest('.apishopsFormGroup').addClass('in');   
@@ -456,6 +458,7 @@ function apishopsFormLoadParcelParameters(params){
     		jsonp: 'dataType',
     		retrys:params['retrys'],
     		charset:params['charset'],
+    		lang:params['lang'],
     		callBackFunctionName:params['callBackFunctionName']
     	},	
 		function(result){
@@ -536,6 +539,7 @@ function apishopsFormLoadRegions(params){
     		wpId: params['wpId'],
     		objectId:$object.attr('id'),
     		charset:params['charset'],
+    		lang:params['lang'],
     		jsonp: 'dataType'
     	},	
 		function(result){
