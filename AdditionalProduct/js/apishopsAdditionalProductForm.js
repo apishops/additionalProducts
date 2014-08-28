@@ -16,7 +16,8 @@
                 productLoader: '<img src="http://apishops.com/Images/indicator.gif"/> Загружаем товары...',
                 productAdd: '<img src="http://apishops.com/Images/indicator.gif"/> Добавляем товар к заказу...',
                 addProductLabel: 'Добавить к заказу',
-                addProductLabelOk: 'Товар добавлен к заказу'
+                addProductLabelOk: 'Товар добавлен к заказу',
+                charset:'cp1251'
             };
             this.setOptions(options);
             this.initModal();
@@ -58,7 +59,7 @@
                 $el.html("<h1>" + options.title + "</h1>");
                 var $div = $("<div>" + options.productLoader + "</div>");
                 $el.append($div);
-                apishopsAdditionalGetJSONP({action: "getAdditionalProducts", siteId: options.siteId, orderId: options.orderId},
+                apishopsAdditionalGetJSONP({action: "getAdditionalProducts", siteId: options.siteId, charset: options.charset,  orderId: options.orderId},
                     function(data){
                         $div.empty();
                         var $table = $("<table class='addptable'/>");
@@ -103,7 +104,7 @@
                             $a.bind("click", function(event){
                                 event.preventDefault();
                                 $tdbuy.html("<span style='padding-left: 15px;'>" + options.productAdd + "</span>");
-                                apishopsAdditionalGetJSONP({action: "addProductToOrder", siteId: options.siteId, orderId: options.orderId, productId: productId, wpId: wpId, count: 1},
+                                apishopsAdditionalGetJSONP({action: "addProductToOrder", siteId: options.siteId, charset: options.charset, orderId: options.orderId, productId: productId, wpId: wpId, count: 1},
                                     function(data){
                                         $("#addpbuy" + data.data.productId).html("<span style='padding-left: 15px;'>" + options.addProductLabelOk + "</span>");
                                     });
