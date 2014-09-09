@@ -1,5 +1,8 @@
-/***
-v1.2
+/* 
+* @Author: apishops
+* @Date:   2014-09-08 22:49:59
+* @Last Modified by:   apishops
+* @Last Modified time: 2014-09-09 17:09:44
 */
 
 jQuery.fn.apishopsForm=function(options) 
@@ -41,7 +44,7 @@ jQuery.fn.apishopsForm=function(options)
 		price:1017.41,
 		priceRound:1017, 
 		wpId:15743307,
-		lang:6,
+		lang:0,
 		charset:'utf8',
 		successUrl:'/finish.jsp?id=',
 		form_template_normal:'    <form id=customForm class="apishopsForm">		<h1>Форма заказа</h1>		<small>Заполните пожалуйста поля</small>		<div class="apishopsFormGroup apishopsFormCount">			<label>Количество</label>			<select name="apishopsFormCount" pattern="^[1-9][0-9]*$">				<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>			</select>		</div>		<div class="apishopsFormGroup apishopsFormFio">			<label for="inputSuccess"> &nbsp;</label>			<input type="text" name="apishopsFormFio" placeholder="ФИО" pattern=".{3,}">		</div>		<div class="apishopsFormGroup apishopsFormMail">			<input type="text" name="apishopsFormEmail" placeholder="email@email.com" pattern=".*">		 </div>				<div class="apishopsFormGroup apishopsFormPhone">			<input type="text" name="apishopsFormPhone" placeholder="+7(___) ___ __ __" pattern=".{3,}">		</div>		<div class="apishopsFormGroup apishopsFormAddress">			<input type="text" name="apishopsFormAddress" placeholder="ул.Юннатов, д.1, кв.2" pattern=".{3,}">		 </div>				  		<div class="apishopsFormGroup apishopsFormCity">			<label>Выберите город доставки</label>			<select name="apishopsFormRegion" pattern="^[0-9][0-9]*$">			</select>		</div>		<div class="apishopsFormGroup apishopsFormDelivery apishopsAnimation apishopsSlide">			<label>Выберите способ доставки</label>			<select name="apishopsFormDelivery" pattern="^[0-9][0-9]*$">			</select>		</div>								<div class="apishopsFormGroup apishopsFormPayment apishopsAnimation apishopsSlide">			<label>Выберите способ оплаты</label>			<select name="apishopsFormPayment" pattern="^[0-9][0-9]*$">			</select>		</div>			<div class="apishopsFormGroup apishopsFormCost apishopsAnimation apishopsSlide apishopsLoading">			<label><span name="apishopsFormCost"></span></label>					</div>							<div class="apishopsFormGroup">			<a href="#" class="apishopsFormButton apishopsFormBuy underline" onclick="$(this).closest(\'form\').submit(); return false;">				<b>Заказать товар!</b>						</a>		</div> 			         </form>',
@@ -380,6 +383,9 @@ var apishopsJSONP={
 
 function apishopsFormGetJSONP(jsonp, callBackFunction){
 
+	if(typeof jsonp['lang']!='undefined' && jsonp['lang']==0)
+		delete jsonp['lang'];	
+
 	clearInterval(apishopsJSONP.checkInterval);
 
 	jsonp.processId=String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now();
@@ -527,7 +533,7 @@ function apishopsFormLoadRegions(params){
 	$object=$(params['object']);
 	$object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 	
-	if(typeof $object.attr('id')=='undefined')
+	if(typeof $object.attr('id')=='undefined' || $object.attr('id')=='')
 		$object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now())
 
 
@@ -582,7 +588,7 @@ function apishopsFormLoadDeliveryTypes(params){
 	$object=$(params['object']);
 	$object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 
-	if(typeof $object.attr('id') == 'undefined')
+	if(typeof $object.attr('id')=='undefined' || $object.attr('id')=='')
 		$object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now());
 				
 		
@@ -643,7 +649,7 @@ function apishopsFormLoadPaymentTypes(params){
 	$object=$(params['object']);
 	$object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 	
-	if(typeof $object.attr('id') == 'undefined')
+	if(typeof $object.attr('id')=='undefined' || $object.attr('id')=='')
 		$object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now());
 		
 
@@ -688,7 +694,7 @@ function apishopsFormLoadPrice(params){
 	$object=$(params['object']);
 	$object.closest('.apishopsFormGroup').addClass('apishopsLoading');
 	
-	if(typeof $object.attr('id') == 'undefined')
+	if(typeof $object.attr('id')=='undefined' || $object.attr('id')=='')
 		$object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now());
 		
 
@@ -806,7 +812,7 @@ function apishopsFormSubmit(params){
 		};		
 	}	
 
-	if(typeof $object.attr('id')=='undefined')
+	if(typeof $object.attr('id')=='undefined' || $object.attr('id')=='')
 		$object.attr('id','apishopsId'+String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now())
 
     var objDate = new Date();
@@ -839,12 +845,43 @@ function apishopsFormSubmit(params){
 
 
 function apishopsLog(text) {
-  console.log(text)
-  //if (window.console) {
-  //   window.console.log(text);
-  //}
+  if (window.console) {
+     window.console.log(text);
+  }
+  if (console) {
+  	console.log(text);
+  }
 }	
 
+/*IE8 fix */
+if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(elt /*, from*/)
+  {
+    var len = this.length >>> 0;
+
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}
+
+if (!Date.now) {
+    Date.now = function() {
+        return +new Date();
+    };
+}
 
 function ObjToSource(o){
     if (!o) return 'null';
